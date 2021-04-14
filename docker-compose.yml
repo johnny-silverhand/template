@@ -58,7 +58,7 @@ services:
       - 8080:80
     volumes:
       - ./:/app
-      - ./data/docker/common/nginx/:/etc/nginx/conf.d/
+      - ./data/docker/common/nginx/conf.d/:/etc/nginx/conf.d/
     depends_on:
       - php-fpm
       - php-cli

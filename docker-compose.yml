@@ -27,7 +27,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: education
+      POSTGRES_DB: main
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
@@ -38,7 +38,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: education_test
+      POSTGRES_DB: main_test
     volumes:
       - postgres-test:/var/lib/postgresql/data
     ports:
@@ -53,15 +53,15 @@ services:
     restart: always
   nginx:
     container_name: nginx
-    build:
-      context: data/docker
-      dockerfile: dev/nginx/Dockerfile
+    image: nginx:latest
     ports:
       - 8080:80
     volumes:
       - ./:/app
+      - ./data/docker/common/nginx/:/etc/nginx/conf.d/
     depends_on:
       - php-fpm
+      - php-cli
     restart: always
 
 volumes:

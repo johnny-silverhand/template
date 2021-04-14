@@ -24,7 +24,7 @@ docker-build:
 cli-init: cli-permissions cli-composer-install cli-wait-db cli-migrations
 
 cli-permissions:
-	docker run --rm -v ${PWD}:/app -w /app $(shell basename $(CURDIR))_php-cli chmod 777 runtime web/assets yii
+	docker run --rm -v ${PWD}:/app -w /app $(shell basename $(CURDIR))_php-cli chmod 777 runtime web/assets yii tests/bin/yii
 
 cli-composer-install:
 	docker-compose run --rm php-cli composer install

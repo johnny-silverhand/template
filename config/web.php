@@ -2,9 +2,15 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
-
+$cookiesParams = [
+    'httpOnly' => true,
+    'sameSite' => PHP_VERSION_ID >= 70300 ? \yii\web\Cookie::SAME_SITE_STRICT : null,
+    'secure' => !YII_ENV_DEV,
+];
 $config = [
-    'id' => 'basic',
+    'id' => 'template',
+    'name' => 'Шаблон',
+    'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -20,8 +26,11 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\security\UserIdentity',
             'enableAutoLogin' => true,
+            'authTimeout' => 172800,
+            'absoluteAuthTimeout' => 2592000,
+            'identityCookie' => array_merge(['name' => '_identity'], $cookiesParams),
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
